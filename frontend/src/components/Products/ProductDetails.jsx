@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 const selectedProduct = {
   name: "Stylish Jacket",
@@ -26,6 +27,7 @@ const ProductDetails = () => {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
     if (selectedProduct.images?.length > 0) {
@@ -36,6 +38,23 @@ const ProductDetails = () => {
   const handleQuantityChange = (action) => {
     if (action === "plus") setQuantity((prev) => prev + 1);
     if (action === "minus" && quantity > 1) setQuantity((prev) => prev - 1);
+  };
+
+  const handleAddToCart = () =>{
+    if(!selectedSize || !selectedColor){
+        toast.error("Please select a size and color before adding to Cart.",{
+            duration:1000,
+        });
+        return;
+    }
+    setIsButtonDisabled(true);
+
+    setTimeout(() => {
+        toast.success("product add to cart!",{
+            duration:1000,
+        });
+        setIsButtonDisabled(false);
+    },500);
   };
 
   return (
@@ -160,9 +179,19 @@ const ProductDetails = () => {
             </div>
 
             {/* Add to Cart Button */}
-            <button className="bg-black text-white py-3 px-6 rounded-lg w-full mb-8 font-semibold hover:bg-gray-800 transition shadow-md">
-              ADD TO CART
-            </button>
+          
+   <button 
+     onClick={handleAddToCart} 
+     disabled={isButtonDisabled} 
+     className={`bg-black text-white py-2 px-6 rounded-lg w-full mb-8 font-semibold transition shadow-md ${
+     isButtonDisabled 
+      ? "cursor-not-allowed opacity-50" 
+      : "hover:bg-gray-800"
+    }`}
+   >
+  
+      {isButtonDisabled ? "Adding..." : "ADD TO CART"}
+   </button>
 
             {/* Characteristics Table */}
             <div className="border-t pt-6">
