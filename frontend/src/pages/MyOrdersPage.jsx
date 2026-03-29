@@ -4,6 +4,7 @@ const MyOrdersPage = () => {
     const[orders,setOrders] = useState([]);
 
     useEffect(()=>{
+        
         //Simulate fetching orders
         setTimeout(()=>{
             const mockOrders = [
@@ -110,16 +111,15 @@ const MyOrdersPage = () => {
                              >
                                 You have no orders
 
-                             </td>
+                            </td>
                         </tr>
-                    )}
+                      )}
                 </tbody>
-            </table>
-
-        </div>
+             </table>
+         </div>
     </div>
           
   )
 }
 
-export default MyOrdersPage
+export default MyOrdersPage;
