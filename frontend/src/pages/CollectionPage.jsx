@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { FaFilter } from 'react-icons/fa';
 import FilterSidebar from '../components/Products/FilterSidebar';
+import ProductGrid from '../components/Products/ProductGrid';
 
 const CollectionPage = () => {
     const [products, setProducts] = useState([]);
@@ -59,16 +60,12 @@ const CollectionPage = () => {
             {/* Product Display Area */}
             <div className="flex-grow p-4">
                 <h2 className="text-2xl font-bold mb-6 uppercase">All Collection</h2>
-                                
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {products.map((product) => (
-                        <div key={product._id} className="border p-4 rounded-lg">
-                            <img src={product.images[0].url} alt={product.name} className="w-full h-64 object-cover mb-4 rounded" />
-                            <h4 className="font-bold">{product.name}</h4>
-                            <p className="text-gray-600">${product.price}</p>
-                        </div>
-                    ))}
-                </div>
+               {/* Sort Options*/}
+               <SortOptions />
+
+               {/* Product Grid */}
+               <ProductGrid products={products} />
+              
             </div>
         </div>
     );
