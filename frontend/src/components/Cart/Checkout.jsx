@@ -22,6 +22,11 @@ const Checkout = () => {
      setCheckoutId(123);
   };
 
+  const handlePaymentSuccess = (details) => {
+    console.log("Payment successful!", details);
+    navigate('/order-confirmation');
+  };
+
 
   return (
     <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto py-10 px-6
@@ -168,17 +173,25 @@ const Checkout = () => {
                 ):(
                   <div>
                     <h3 className='text-lg mb-4'>Pay with Paypal</h3>
-                    <PayPalButton />
+                    <PayPalButton
+                     amount={100} 
+                     onSuccess={handlePaymentSuccess} 
+                     onError={(err) => alert("Payment failed. Try again.")}
+                     />
                     </div>
                 
                 )}
 
               </div>
-
         </form>
+      </div>
+      {/* Right Section */}
+      <div className='bg-white rounded-lg p-6'>
+        <h3 className='text-2xl uppercase mb-6'>Order Summary</h3>
+        
       </div>
     </div>
   )
 }
 
-export default Checkout
+export default Checkout;
