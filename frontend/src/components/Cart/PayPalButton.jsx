@@ -1,9 +1,21 @@
 import React from 'react'
+import {PayPalButtons, PayPalScriptProvider} from "@paypal/react-paypal-js";
 
-const PayPalButton = () => {
-  return (
-    <div>PayPalButton</div>
-  )
-}
+const PayPalButton = ({ amount, onSuccess , onError}) => {
+  return <PayPalScriptProvider options={{"client-id": 
+  "AeqhRLeKBriRaEZAPar5AIkhOOAu7g35wTQ1md7kW7rcrg-nCVDRT6-qEomFWRkydwrBKx4lr2vUNR3R"}}>
+    <PayPalButtons style={{ layout: "vertical" }}
+    createOrder={(data, actions) => {
+      return actions.order.create({
+        purchase_units: [{ amount: { value: amount } }]
+        });
+    }}
+    onApprove={(data, actions) => {
+        return actions.order.capture().then(onSuccess);
+    }}
+    onError={onError}
+     />
+    </PayPalScriptProvider>
+};
 
-export default PayPalButton
+export default PayPalButton;
