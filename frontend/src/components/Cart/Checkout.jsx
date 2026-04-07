@@ -2,13 +2,13 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PayPalButton from './PayPalButton';
-import Cart from "../../components/Cart/Checkout";
+
 
 const Checkout = () => {
   const navigate = useNavigate();
   const [checkoutId, setCheckoutId] = useState(null);
-  const [shippingAddress, setShippingAddress] = useState('');
-  const [customerInfo, setCustomerInfo] = useState({
+  const [shippingAddress, setShippingAddress] = useState({});
+  {/*const [customerInfo, setCustomerInfo] = useState({
     firstName: "",
     lastName: "",
     address: "",
@@ -16,7 +16,20 @@ const Checkout = () => {
     postalCode: "",
     country: "",
     phone: "",
-  });
+  }); */}
+
+  const cart = {
+    products: [
+      {
+        name: "Stylish Jacket",
+        price: 100,
+        size: "M",
+        color: "Black",
+        image: "https://picsum.photos/200",
+      },
+    ],
+    totalPrice: 100,
+  };
 
   const handleCreateCheckout = (e) => {
     e.preventDefault();
@@ -186,14 +199,14 @@ const Checkout = () => {
               </div>
         </form>
       </div>
-      {/* Right Section */}
-      <div className='bg-gray-50 rounded-lg'>
+     {/* Right Section */}
+     <div className='bg-gray-50 rounded-lg'>
         <h3 className='text-lg  mb-4'>Order Summary</h3>
         <div className='border-t py-4 mb-4'>
-          {Cart.products.map((product,index) => (
+          {cart.products.map((product,index) => (
             <div 
             key={index}
-              className='flex items-start justify-between py-2 border-b'
+            className='flex items-start justify-between py-2 border-b'
             >
               <div className='flex items-start'>
                 <img
@@ -213,7 +226,8 @@ const Checkout = () => {
         </div> 
 
         <div className='flex justify-between items-center text-lg mb-4'>
-          <p>${Cart.totalPrice?.toLocaleString()}</p>
+          <p>Subtotal</p>
+          <p>${cart.totalPrice?.toLocaleString()}</p>
         </div>
 
         <div className='flex justify-between items-center text-lg'>
@@ -221,7 +235,12 @@ const Checkout = () => {
           <p>Free</p> 
         </div>
 
-      </div>
+        <div className='flex justify-between items-center text-lg  mt-4 border-t pt-4'>
+          <p>Total</p>
+          <p>${cart.totalPrice?.toLocaleString()}</p>
+        </div>
+
+      </div>  
     </div>
   );
 };
