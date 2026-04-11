@@ -12,6 +12,7 @@ import Checkout from './components/Cart/Checkout';
 import OrderConfirmationPage from './pages/OrderConfirmationPage';
 import OrderDetailsPage from './pages/OrderDetailsPage';
 
+
 const App = () => {
   return (
 <BrowserRouter
