@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import React from 'react';
 
@@ -108,25 +108,40 @@ const OrderDetailsPage = () => {
                         </thead>
                         <tbody>
                             {orderDetails.orderItems.map((item) => (
-                                <tr key={item.productId}>
-                                    <td className='py-2 px-4 border-b'>
-                                        <div className='flex items-center'>
-                                            <img src={item.image} alt={item.name} className='w-16 h-16 object-cover mr-4' />
-                                            <span>{item.name}</span>
-                                        </div>
+                                <tr key={item.productId} className='border-b'>
+                                    <td className='py-2 px-4 flex items-center'>                     
+                                            <img 
+                                            src={item.image} 
+                                            alt={item.name} 
+                                            className='w-16 h-12 object-cover rounded-lg mr-4' 
+                                            />
+                                            <Link
+                                            to={`/product/${item.productId}`}
+                                            className='text-blue-500 hover:underline'
+                                            >
+                                                {item.name}
+                                            </Link>                                        
                                     </td>
-                                    <td className='py-2 px-4 border-b'>${item.price.toFixed(2)}</td>
-                                    <td className='py-2 px-4 border-b'>{item.Quantity}</td>
-                                    <td className='py-2 px-4 border-b'>${(item.price * item.Quantity).toFixed(2)}</td>
+
+                                    <td className='py-2 px-4'>${item.price}</td>
+                                    <td className='py-2 px-4'>{item.Quantity}</td>
+                                    <td className='py-2 px-4'>
+                                        ${item.price * item.Quantity}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
-               ) }
+
+                {/* Back to Orders Link */}
+                <Link to="/my-orders" className='text-blue-500 hover:underline'>
+                 Back to My Orders
+                </Link>
+            </div>
+         ) }
     </div>
   );
- 
 };
 
 export default OrderDetailsPage;
